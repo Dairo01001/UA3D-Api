@@ -1,0 +1,1 @@
+checkout scmGit(branches: [[name: 'main']], browser: github('https://github.com/Dairo01001/meta-client'), extensions: [cloneOption(honorRefspec: true, noTags: true, reference: '', shallow: false), lfs(), localBranch('main')], userRemoteConfigs: [[credentialsId: 'fb8095dd-840f-49be-81ef-efacd6105083', url: 'https://github.com/Dairo01001/meta-client']])
