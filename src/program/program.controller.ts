@@ -1,7 +1,12 @@
-import { NextFunction, Request, Response } from 'express';
-import { CreateProgramInput } from './program.schema';
-import { StatusCodes } from 'http-status-codes';
-import { createProgram, getAllPrograms, getProgramById } from './program.service';
+import { NextFunction, Request, Response } from 'express'
+import { StatusCodes } from 'http-status-codes'
+import { CreateProgramInput } from './program.schema'
+import {
+  createProgram,
+  getAllPrograms,
+  getProgramById,
+  updateProgram,
+} from './program.service'
 
 export const createProgramHandler = async (
   req: Request<{}, {}, CreateProgramInput['body']>,
@@ -9,24 +14,48 @@ export const createProgramHandler = async (
   next: NextFunction,
 ) => {
   try {
-    res.status(StatusCodes.CREATED).json(await createProgram(req.body));
+    res.status(StatusCodes.CREATED).json(await createProgram(req.body))
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
 
-export const getAllProgramsHandler = async (_: Request, res: Response, next: NextFunction) => {
+export const getAllProgramsHandler = async (
+  _: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
-    res.status(StatusCodes.OK).json(await getAllPrograms());
+    res.status(StatusCodes.OK).json(await getAllPrograms())
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
 
-export const getProgramHandler = async (req: Request, res: Response, next: NextFunction) => {
+export const getProgramHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
-    res.status(StatusCodes.OK).json(await getProgramById(Number(req.params?.id)));
+    res
+      .status(StatusCodes.OK)
+      .json(await getProgramById(Number(req.params?.id)))
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
+
+export const updateProgramHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    res
+      .status(StatusCodes.OK)
+      .json(await updateProgram(Number(req.params?.id), req.body.status))
+  } catch (error) {
+    next(error)
+  }
+}

@@ -5,6 +5,7 @@ import {
   createProgramHandler,
   getAllProgramsHandler,
   getProgramHandler,
+  updateProgramHandler,
 } from './program.controller'
 import { CreateProgramSchema } from './program.schema'
 
@@ -20,6 +21,7 @@ export const programRoutes = (): Router => {
   )
   router.get('/', getAllProgramsHandler)
   router.get('/:id', deserializeUser, adminAuthorize, getProgramHandler)
+  router.put('/:id', deserializeUser, adminAuthorize, updateProgramHandler)
 
   return router
 }

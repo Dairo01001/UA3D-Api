@@ -1,17 +1,17 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client'
 
 export class PrismaService {
-  private static instance: PrismaClient;
+  private static instance: PrismaClient
 
   private constructor() {
-    PrismaService.instance = new PrismaClient({ log: ['query'], errorFormat: 'pretty' });
+    PrismaService.instance = new PrismaClient()
   }
 
   public static getInstance(): PrismaClient {
     if (!PrismaService.instance) {
-      new PrismaService();
+      new PrismaService()
     }
 
-    return PrismaService.instance;
+    return PrismaService.instance
   }
 }
