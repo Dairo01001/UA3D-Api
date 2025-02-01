@@ -1271,10 +1271,6 @@ components:
     CreateServer:
       type: object
       properties:
-        processId:
-          type: string
-          description: ID del proceso del servidor
-          example: 2318fb07
         port:
           type: number
           description: Puerto del servidor
@@ -1291,18 +1287,6 @@ components:
           type: string
           description: URL de los archivos del servidor
           example: http://localhost:8080/data
-        dataBaseName:
-          type: string
-          description: Nombre de la base de datos
-          example: ua3d
-        dataBaseUser:
-          type: string
-          description: Usuario de la base de datos
-          example: ua3d
-        dataBasePassword:
-          type: string
-          description: Contraseña de la base de datos
-          example: ua3d
     Server:
       type: object
       properties:
