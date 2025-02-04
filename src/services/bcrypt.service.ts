@@ -1,13 +1,20 @@
-import * as bcrypt from 'bcrypt';
-import { SALT_WORK_FACTOR } from '../config';
+import crypto from 'crypto'
+import { SALT } from '../config'
 
 export const hashPassword = async (password: string): Promise<string> => {
-  const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
-  const hash = await bcrypt.hash(password, salt);
-  return hash;
-};
+  const hash = crypto
+    .pbkdf2Sync(password, SALT, 1000, 64, 'sha512')
+    .toString('hex')
+  return hash
+}
 
-export const comparePassword = async (password: string, hash: string): Promise<boolean> => {
-  const isMatch = await bcrypt.compare(password, hash);
-  return isMatch;
-};
+export const comparePassword = async (
+  password: string,
+  hash: string,
+): Promise<boolean> => {
+  const hashVerify = crypto
+    .pbkdf2Sync(password, SALT, 1000, 64, 'sha512')
+    .toString('hex')
+  const isMatch = hash === hashVerify
+  return isMatch
+}
