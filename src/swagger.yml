@@ -500,6 +500,44 @@ paths:
               schema:
                 $ref: '#/components/responses/UnauthorizedError'
   /programs/{programId}:
+    put:
+      security:
+        - bearerAuth: []
+      summary: Actualiza un programa
+      parameters:
+        - in: path
+          name: programId
+          schema:
+            type: number
+          required: true
+          description: ID del programa que desea actualizar
+      tags: [Programs]
+      description: Actualiza un programa
+      operationId: update-program
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProgram'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Program'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/BadRequestError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/UnauthorizedError'
     get:
       security:
         - bearerAuth: []
@@ -1157,6 +1195,17 @@ components:
           type: number
           description: ID de la facultad
           example: 1
+    UpdateProgram:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre del programa
+          example: Programa de Ingeniería
+        status:
+          type: boolean
+          description: Estado del programa
+          example: true
     CreatePerson:
       type: object
       properties:
