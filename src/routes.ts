@@ -9,6 +9,7 @@ import { serverRoutes } from './server'
 import { serverStatusRoutes } from './server-status'
 import { userRoutes } from './user'
 import { userStatusRoutes } from './user-status/user-status.routes'
+import { imagesRouter } from './images/images.router'
 
 const routes = (app: Application) => {
   app.get('/', (req, res) => {
@@ -25,6 +26,7 @@ const routes = (app: Application) => {
   app.use('/roles', roleRoutes())
   app.use('/user-status', userStatusRoutes())
   app.use('/servers', serverRoutes())
+  app.use('/images', imagesRouter())
 }
 
 export default routes
