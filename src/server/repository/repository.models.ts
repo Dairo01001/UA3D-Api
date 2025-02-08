@@ -16,12 +16,7 @@ export const create = async (data: CreateServer) => {
     update: {},
   })
 
-  return prisma.server.create({
-    data: {
-      ...data,
-      statusId: newStatus.id,
-    },
-  })
+  return ''
 }
 
 export const findAll = async () => {

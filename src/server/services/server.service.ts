@@ -1,8 +1,8 @@
 import { CreateServer } from '../models'
-import { create, findAll, findById } from '../repository'
+import { findAll, findById } from '../repository'
 
 export const createServer = (data: CreateServer) => {
-  return create(data)
+  return 'createServer'
 }
 
 export const findAllServer = async () => {
