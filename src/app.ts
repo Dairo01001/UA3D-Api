@@ -6,6 +6,7 @@ import { ORIGIN, PORT } from './config'
 import { globalErrorHandler, unkanowEndpoint } from './middlewares'
 import routes from './routes'
 import { swaggerInit } from './swagger'
+import fs from 'fs'
 
 const createApp = () => {
   const app: Application = express()
@@ -15,6 +16,12 @@ const createApp = () => {
   app.use(express.urlencoded({ extended: true }))
   app.use(morgan('dev'))
   swaggerInit(app)
+
+  app.use('/uploads', express.static('uploads'))
+  const dir = './uploads'
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir)
+  }
 
   app.use(
     cors({

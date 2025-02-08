@@ -10,11 +10,8 @@ export const create = (data: CreateProgram) => {
   })
 }
 
-export const getAll = (
-  where: Prisma.ProgramWhereInput,
-  select?: Prisma.ProgramSelect,
-) => {
-  return prisma.program.findMany({ where, select })
+export const getAll = () => {
+  return prisma.program.findMany()
 }
 
 export const getById = (
@@ -24,9 +21,9 @@ export const getById = (
   return prisma.program.findUnique({ where, select })
 }
 
-export const updateById = (
+export const update = (
   where: Prisma.ProgramWhereUniqueInput,
   data: Prisma.ProgramUpdateInput,
 ) => {
-  return prisma.program.update({ where, data: { status: data.status } })
+  return prisma.program.update({ where, data })
 }

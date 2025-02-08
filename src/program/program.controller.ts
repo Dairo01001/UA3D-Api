@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
-import { StatusCodes } from 'http-status-codes'
 import { CreateProgramInput } from './program.schema'
+import { StatusCodes } from 'http-status-codes'
 import {
   createProgram,
   getAllPrograms,
@@ -54,7 +54,7 @@ export const updateProgramHandler = async (
   try {
     res
       .status(StatusCodes.OK)
-      .json(await updateProgram(Number(req.params?.id), req.body.status))
+      .json(await updateProgram(Number(req.params?.id), req.body))
   } catch (error) {
     next(error)
   }

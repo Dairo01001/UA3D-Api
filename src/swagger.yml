@@ -500,6 +500,44 @@ paths:
               schema:
                 $ref: '#/components/responses/UnauthorizedError'
   /programs/{programId}:
+    put:
+      security:
+        - bearerAuth: []
+      summary: Actualiza un programa
+      parameters:
+        - in: path
+          name: programId
+          schema:
+            type: number
+          required: true
+          description: ID del programa que desea actualizar
+      tags: [Programs]
+      description: Actualiza un programa
+      operationId: update-program
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProgram'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Program'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/BadRequestError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/UnauthorizedError'
     get:
       security:
         - bearerAuth: []
@@ -673,6 +711,38 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Server'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/BadRequestError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/UnauthorizedError'
+  /servers/create:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Crea un servidor
+      tags: [Servers]
+      description: Crea un servidor
+      operationId: created-server
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateServer'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Server'
         '400':
           description: Bad Request
           content:
@@ -1063,6 +1133,133 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/UnauthorizedError'
+  /images/uploads/{filename}:
+    delete:
+      security:
+        - bearerAuth: []
+      summary: Elimina una imagen
+      tags:
+        - Images
+      description: Elimina una imagen
+      operationId: delete-image
+      parameters:
+        - in: path
+          name: filename
+          schema:
+            type: string
+          required: true
+          description: Nombre de la imagen que desea eliminar
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Image deleted successfully
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/BadRequestError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/UnauthorizedError'
+  /images/uploads:
+    get:
+      security:
+        - bearerAuth: []
+      description: List all uploaded files
+      tags:
+        - Images
+      responses:
+        '200':
+          description: An array of uploaded files
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    filename:
+                      type: string
+                      description: The name of the uploaded file
+                      example: image.jpg
+                    url:
+                      type: string
+                      description: The URL of the uploaded file
+                      example: http://localhost:8080/uploads/image.jpg
+  /uploads/{filename}:
+    get:
+      description: Ver una imagen guardada
+      tags:
+        - Images
+      parameters:
+        - in: path
+          name: filename
+          required: true
+          schema:
+            type: string
+            description: The name of the image file to retrieve.
+      responses:
+        '200':
+          description: The image file
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: The image file was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/NotFoundError'
+  /images/upload:
+    post:
+      security:
+        - bearerAuth: []
+      description: 'Upload images to the server'
+      tags:
+        - Images
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                  description: The image to upload.
+      responses:
+        '200':
+          description: Image uploaded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    description: The URL of the uploaded image.
+                    example: http://localhost:8080/uploads/image.jpg
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/BadRequestError'
 
 components:
   responses:
@@ -1157,6 +1354,17 @@ components:
           type: number
           description: ID de la facultad
           example: 1
+    UpdateProgram:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre del programa
+          example: Programa de Ingeniería
+        status:
+          type: boolean
+          description: Estado del programa
+          example: true
     CreatePerson:
       type: object
       properties:
@@ -1268,6 +1476,23 @@ components:
           type: string
           description: Nombre del rol
           example: USER
+
+    CreatedServer:
+      type: object
+      properties:
+        port:
+          type: number
+          description: Puerto del servidor
+          example: 8080
+        gridName:
+          type: string
+          description: Nombre del servidor
+          example: localhost
+        dataBaseName:
+          type: string
+          description: Nombre de la base de datos
+          example: ua3d
+
     CreateServer:
       type: object
       properties:

@@ -83,14 +83,14 @@ model Server {
   processId        String @map("processid_server")
   port             Int    @map("port_server")
   urlHost          String @map("urlhost_server")
-  gridName         String @map("gridname_server")
+  gridName         String @unique @map("gridname_server")
   dataSource       String @map("datasource_server")
   dataBaseName     String @map("databasename_server")
   dataBaseUser     String @map("databaseuser_server")
   dataBasePassword String @map("databasepassword_server")
 
-  status   ServerStatus @relation(fields: [statusId], references: [id])
-  statusId Int          @map("statusid_server")
+  status   ServerStatus  @relation(fields: [statusId], references: [id])
+  statusId Int           @map("statusid_server")
   files    ServerFiles[]
   islands  Island[]
 }

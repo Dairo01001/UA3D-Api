@@ -19,7 +19,7 @@ export const upsertServerStatusHandler = async (
     return res.status(StatusCodes.CREATED).json(
       await upsertServerStatus({
         name,
-        status: status || true,
+        status: status === undefined ? true : false,
       }),
     )
   } catch (error) {

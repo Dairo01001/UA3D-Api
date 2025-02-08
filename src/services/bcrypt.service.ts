@@ -1,13 +1,6 @@
 import crypto from 'crypto'
 import { SALT } from '../config'
 
-export const hashPassword = async (password: string): Promise<string> => {
-  const hash = crypto
-    .pbkdf2Sync(password, SALT, 1000, 64, 'sha512')
-    .toString('hex')
-  return hash
-}
-
 export const comparePassword = async (
   password: string,
   hash: string,
@@ -17,4 +10,11 @@ export const comparePassword = async (
     .toString('hex')
   const isMatch = hash === hashVerify
   return isMatch
+}
+
+export const hashPassword = async (password: string): Promise<string> => {
+  const hash = crypto
+    .pbkdf2Sync(password, SALT, 1000, 64, 'sha512')
+    .toString('hex')
+  return hash
 }
