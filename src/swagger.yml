@@ -723,6 +723,38 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/UnauthorizedError'
+  /servers/create:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Crea un servidor
+      tags: [Servers]
+      description: Crea un servidor
+      operationId: created-server
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateServer'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Server'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/BadRequestError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/UnauthorizedError'
   /servers/{serverId}:
     get:
       security:
@@ -1444,6 +1476,23 @@ components:
           type: string
           description: Nombre del rol
           example: USER
+
+    CreatedServer:
+      type: object
+      properties:
+        port:
+          type: number
+          description: Puerto del servidor
+          example: 8080
+        gridName:
+          type: string
+          description: Nombre del servidor
+          example: localhost
+        dataBaseName:
+          type: string
+          description: Nombre de la base de datos
+          example: ua3d
+
     CreateServer:
       type: object
       properties:
