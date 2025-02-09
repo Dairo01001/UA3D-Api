@@ -1,8 +1,8 @@
-import { CreateServer } from '../models'
-import { findAll, findById } from '../repository'
+import { CreateServer, ServerEntity, UpdateServer } from '../models'
+import { findAll, findById, update } from '../repository'
 
-export const createServer = (data: CreateServer) => {
-  return 'createServer'
+export const createServer = (data: CreateServer): Promise<ServerEntity> => {
+  return createServer(data)
 }
 
 export const findAllServer = async () => {
@@ -11,4 +11,8 @@ export const findAllServer = async () => {
 
 export const findServerById = async (id: string) => {
   return findById({ id })
+}
+
+export const updateServer = (id: string, data: UpdateServer) => {
+  return update({ id }, data)
 }

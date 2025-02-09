@@ -16,7 +16,12 @@ export const create = async (data: CreateServer) => {
     update: {},
   })
 
-  return ''
+  return prisma.server.create({
+    data: {
+      ...data,
+      statusId: newStatus.id,
+    },
+  })
 }
 
 export const findAll = async () => {
@@ -35,5 +40,15 @@ export const findById = async (where: Prisma.ServerWhereUniqueInput) => {
       files: true,
       islands: true,
     },
+  })
+}
+
+export const update = async (
+  where: Prisma.ServerWhereUniqueInput,
+  data: Prisma.ServerUpdateInput,
+) => {
+  return prisma.server.update({
+    where,
+    data,
   })
 }

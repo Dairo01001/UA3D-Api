@@ -80,12 +80,12 @@ model Program {
 
 model Server {
   id               String @id @default(uuid()) @map("id_server")
-  processId        String @map("processid_server")
-  port             Int    @map("port_server")
+  processId        String @unique @map("processid_server")
+  port             Int    @unique @map("port_server")
   urlHost          String @map("urlhost_server")
   gridName         String @unique @map("gridname_server")
-  dataSource       String @map("datasource_server")
-  dataBaseName     String @map("databasename_server")
+  dataSource       String @unique @map("datasource_server")
+  dataBaseName     String @unique @map("databasename_server")
   dataBaseUser     String @map("databaseuser_server")
   dataBasePassword String @map("databasepassword_server")
 
