@@ -664,6 +664,37 @@ paths:
               schema:
                 $ref: '#/components/responses/UnauthorizedError'
   /servers:
+    put:
+      security:
+        - bearerAuth: []
+      summary: Actualiza un servidor
+      tags: [Servers]
+      description: Actualiza un servidor
+      operationId: update-server
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateServer'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Server'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/BadRequestError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/UnauthorizedError'
     post:
       security:
         - bearerAuth: []
@@ -1496,6 +1527,10 @@ components:
     CreateServer:
       type: object
       properties:
+        pvtoPort:
+          type: number
+          description: Puerto del WS
+          example: 8080
         port:
           type: number
           description: Puerto del servidor
@@ -1512,6 +1547,18 @@ components:
           type: string
           description: URL de los archivos del servidor
           example: http://localhost:8080/data
+        dataBaseName:
+          type: string
+          description: Nombre de la base de datos
+          example: ua3d
+        dataBaseUser:
+          type: string
+          description: Usuario de la base de datos
+          example: ua3d
+        dataBasePassword:
+          type: string
+          description: Contraseña de la base de datos
+          example: ua3d
     Server:
       type: object
       properties:
