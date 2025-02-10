@@ -7,6 +7,7 @@ import {
   updateServerStatus,
   upsertServerStatus,
 } from '../services'
+import { StatusPermited } from '../../utils/server-status'
 
 export const upsertServerStatusHandler = async (
   req: Request<{}, {}, CreateServerStatusInput['body']>,
@@ -14,6 +15,12 @@ export const upsertServerStatusHandler = async (
   next: NextFunction,
 ) => {
   const { name, status } = req.body
+
+  if (!Object.values(StatusPermited).includes(name as StatusPermited)) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      message: 'Invalid status',
+    })
+  }
 
   try {
     return res.status(StatusCodes.CREATED).json(

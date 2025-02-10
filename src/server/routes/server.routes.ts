@@ -6,8 +6,13 @@ import {
   createServerHandler,
   findAllServerHandler,
   findByIdHandler,
+  updateServerHandler,
 } from '../controller'
-import { CreatedServerSchema, CreateServerSchema } from '../schemas'
+import {
+  CreatedServerSchema,
+  CreateServerSchema,
+  UpdateServerSchema,
+} from '../schemas'
 
 export const serverRoutes = () => {
   const router = Router()
@@ -18,6 +23,13 @@ export const serverRoutes = () => {
     deserializeUser,
     adminAuthorize,
     createdServerHandler,
+  )
+  router.put(
+    '/',
+    validateResource(UpdateServerSchema),
+    deserializeUser,
+    adminAuthorize,
+    updateServerHandler,
   )
   router.post(
     '/',

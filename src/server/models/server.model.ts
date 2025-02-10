@@ -1,6 +1,6 @@
 export interface ServerEntity {
   id: string
-  processId: string
+  pvtoPort: number
   port: number
   urlHost: string
   gridName: string

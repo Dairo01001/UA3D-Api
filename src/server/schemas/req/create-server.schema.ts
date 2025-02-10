@@ -45,12 +45,10 @@ export const CreatedServerSchema = object({
 export type CreatedServerInput = TypeOf<typeof CreateServerSchema>
 
 export const UpdateServerSchema = object({
-  params: object({
+  body: object({
     id: string({
       required_error: 'Id is required',
     }),
-  }),
-  body: object({
     pvtoPort: number({
       required_error: 'PVTO port is required',
     }).optional(),

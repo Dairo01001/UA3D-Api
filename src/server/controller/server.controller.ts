@@ -1,6 +1,10 @@
 import { NextFunction, Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
-import { CreatedServerInput, CreateServerInput } from '../schemas'
+import {
+  CreatedServerInput,
+  CreateServerInput,
+  UpdateServerInput,
+} from '../schemas'
 import {
   createServer,
   findAllServer,
@@ -22,12 +26,12 @@ export const createServerHandler = async (
 }
 
 export const updateServerHandler = async (
-  req: Request<{ id: string }, {}, CreateServerInput['body']>,
+  req: Request<{ id: string }, {}, UpdateServerInput['body']>,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    const { id } = req.params
+    const { id } = req.body
     res.status(StatusCodes.OK).json(await updateServer(id, req.body))
   } catch (error) {
     next(error)
