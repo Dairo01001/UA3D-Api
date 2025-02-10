@@ -80,7 +80,7 @@ model Program {
 
 model Server {
   id               String @id @default(uuid()) @map("id_server")
-  processId        String @unique @map("processid_server")
+  pvtoPort         Int    @unique @map("pvto_port_server")
   port             Int    @unique @map("port_server")
   urlHost          String @map("urlhost_server")
   gridName         String @unique @map("gridname_server")

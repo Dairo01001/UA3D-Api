@@ -50,7 +50,6 @@ export const deleteImageHandler = async (
 ) => {
   const { filename } = req.params
   const uploadsDir = path.join(__dirname, '../../uploads')
-  console.log(uploadsDir)
 
   try {
     fs.unlinkSync(path.join(uploadsDir, filename))

@@ -2,8 +2,8 @@ import { number, object, string, TypeOf } from 'zod'
 
 export const CreateServerSchema = object({
   body: object({
-    processId: string({
-      required_error: 'Process id is required',
+    pvtoPort: number({
+      required_error: 'PVTO is required',
     }),
     port: number({
       required_error: 'Port is required',
@@ -51,6 +51,9 @@ export const UpdateServerSchema = object({
     }),
   }),
   body: object({
+    pvtoPort: number({
+      required_error: 'PVTO port is required',
+    }).optional(),
     port: number({
       required_error: 'Port is required',
     }).optional(),

@@ -12,7 +12,7 @@ export interface ServerEntity {
 }
 
 export interface CreateServer {
-  processId: string
+  pvtoPort: number
   port: number
   urlHost: string
   gridName: string
@@ -23,7 +23,7 @@ export interface CreateServer {
 }
 
 export interface UpdateServer {
-  processId?: string
+  pvtoPort?: number
   port?: number
   urlHost?: string
   gridName?: string
