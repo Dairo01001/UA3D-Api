@@ -29,6 +29,9 @@ export const findAll = async () => {
     include: {
       status: true,
     },
+    orderBy: {
+      pvtoPort: 'desc',
+    },
   })
 }
 
