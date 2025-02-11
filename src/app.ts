@@ -17,8 +17,8 @@ const createApp = () => {
   app.use(morgan('dev'))
   swaggerInit(app)
 
-  app.use('/uploads', express.static('uploads'))
-  const dir = './uploads'
+  app.use('./src/uploads', express.static('uploads'))
+  const dir = './src/uploads'
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir)
   }

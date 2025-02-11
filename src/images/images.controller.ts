@@ -21,7 +21,7 @@ export const getImagesHandler = async (
   res: Response,
   next: NextFunction,
 ) => {
-  const uploadsDir = path.join(__dirname, '../../uploads')
+  const uploadsDir = path.join(__dirname, '../uploads')
 
   try {
     fs.readdir(uploadsDir, (err, files) => {
