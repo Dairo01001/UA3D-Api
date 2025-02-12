@@ -4,7 +4,7 @@ import { createRole } from '../../role'
 import { hashPassword, PrismaService } from '../../services'
 import { createUserStatus } from '../../user-status'
 import { HttpRequestError } from '../../utils'
-import { CreatedUser, CreateUser } from '../models'
+import { CreatedUser, CreateUser, UpdateUser } from '../models'
 
 const prisma = PrismaService.getInstance()
 
@@ -40,6 +40,21 @@ export const createUser = async (user: CreateUser): Promise<CreatedUser> => {
     role: newRole.name,
     status: newUserStatus.name,
   }
+}
+
+export const updateUser = async (id: string, data: UpdateUser) => {
+  if (!!data.password) {
+    data.password = await hashPassword(data.password)
+  }
+
+  const user = await prisma.user.update({
+    where: {
+      id,
+    },
+    data: data,
+  })
+
+  return user
 }
 
 export const findUniqueUser = async (

@@ -1,21 +1,28 @@
 export interface CreatedUser {
-  id: string;
-  username: string;
-  role?: string;
-  status?: string;
+  id: string
+  username: string
+  role?: string
+  status?: string
+}
+
+export interface UpdateUser {
+  username?: string
+  password?: string
+  roleId?: number
+  statusId?: number
 }
 
 export interface CreateUser {
-  username: string;
-  password: string;
-  role?: string;
-  status?: string;
+  username: string
+  password: string
+  role?: string
+  status?: string
 }
 
 export interface User {
-  id: string;
-  username: string;
-  password: string;
-  roleId: number;
-  statusId: number;
+  id: string
+  username: string
+  password: string
+  roleId: number
+  statusId: number
 }

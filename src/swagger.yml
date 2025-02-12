@@ -1066,6 +1066,45 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/UnauthorizedError'
+  /users/{userId}:
+    put:
+      summary: Actualiza el usuario
+      tags: [Users]
+      description: Actualiza el usuario
+      operationId: update-user
+      parameters:
+        - name: userId
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Datos del usuario
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/BadRequestError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/UnauthorizedError'
   /users/{username}:
     get:
       summary: Valida si el usuario existe
