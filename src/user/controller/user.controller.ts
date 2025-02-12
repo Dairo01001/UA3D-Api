@@ -52,7 +52,7 @@ export const getAllUsersHandler = async (
   try {
     res
       .status(StatusCodes.OK)
-      .json(await findAllUsers({ person: true, profile: true }))
+      .json(await findAllUsers({ person: true, profile: true, role: true }))
   } catch (err: any) {
     next(err)
   }
