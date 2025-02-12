@@ -14,5 +14,5 @@ export const findServerById = async (id: string) => {
 }
 
 export const updateServer = (id: string, data: UpdateServer) => {
-  return update({ id }, data)
+  return update({ id, gridName: data.gridName }, data)
 }

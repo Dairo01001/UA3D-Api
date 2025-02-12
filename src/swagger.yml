@@ -787,6 +787,39 @@ paths:
               schema:
                 $ref: '#/components/responses/UnauthorizedError'
   /servers/{serverId}:
+    delete:
+      security:
+        - bearerAuth: []
+      summary: Eliminar un servidor
+      tags: [Servers]
+      description: Elimina un servidor
+      operationId: delete-server
+      parameters:
+        - name: serverId
+          in: path
+          description: ID del servidor a eliminar
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Server'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/BadRequestError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/UnauthorizedError'
     get:
       security:
         - bearerAuth: []

@@ -12,6 +12,8 @@ import {
   updateServer,
 } from '../services'
 import { checkPort } from '../../utils/check-port'
+import { ADMIN_OPEN_URL } from '../../config'
+import { deleteServer } from '../repository'
 
 export const createServerHandler = async (
   req: Request<{}, {}, CreateServerInput['body']>,
@@ -44,12 +46,11 @@ export const createdServerHandler = async (
   next: NextFunction,
 ) => {
   try {
-    const { port, gridName, dataBaseName } = req.body
-    const portIsAvailable = await checkPort(port)
+    const { port, gridName } = req.body
 
-    const newServer = await fetch('http://131.100.50.247:3002/server', {
+    const newServer = await fetch(`${ADMIN_OPEN_URL}/server`, {
       method: 'POST',
-      body: JSON.stringify({ port: port + '', gridName, dataBaseName }),
+      body: JSON.stringify({ port: port, gridName }),
       headers: { 'Content-Type': 'application/json' },
     })
 
@@ -79,6 +80,23 @@ export const findByIdHandler = async (
   const id = req.params?.id
   try {
     res.status(StatusCodes.OK).json(await findServerById(id))
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const deleteServerHandler = async (
+  req: Request<{ id: string }, {}, {}>,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { id } = req.params
+  try {
+    const server = await deleteServer({ id })
+    await fetch(`${ADMIN_OPEN_URL}/server/${server.gridName}`, {
+      method: 'DELETE',
+    })
+    return server
   } catch (error) {
     next(error)
   }

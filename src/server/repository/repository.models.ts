@@ -55,3 +55,9 @@ export const update = async (
     data,
   })
 }
+
+export const deleteServer = async (where: Prisma.ServerWhereUniqueInput) => {
+  return prisma.server.delete({
+    where,
+  })
+}
