@@ -1,22 +1,21 @@
-import net from 'net'
+import express from 'express'
 
-export const checkPort = (port: number, host = '127.0.0.1') => {
+export const checkPort = (port: number): Promise<boolean> => {
   return new Promise((resolve, reject) => {
-    const server = net.createServer()
+    const app = express()
 
-    server.once('error', (err: any) => {
+    const server = app.listen(port, () => {
+      server.close(() => {
+        resolve(true)
+      })
+    })
+
+    server.on('error', (err: any) => {
       if (err.code === 'EADDRINUSE') {
         resolve(false)
       } else {
         reject(err)
       }
     })
-
-    server.once('listening', () => {
-      server.close()
-      resolve(true)
-    })
-
-    server.listen(port, host)
   })
 }

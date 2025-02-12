@@ -48,6 +48,14 @@ export const createdServerHandler = async (
   try {
     const { port, gridName } = req.body
 
+    const isPortFree = await checkPort(port)
+
+    if (!isPortFree) {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        message: 'Port is already in use',
+      })
+    }
+
     const newServer = await fetch(`${ADMIN_OPEN_URL}/server`, {
       method: 'POST',
       body: JSON.stringify({ port: port, gridName }),

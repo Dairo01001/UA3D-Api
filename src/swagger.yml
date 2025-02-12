@@ -766,7 +766,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateServer'
+              $ref: '#/components/schemas/CreatedServer'
       responses:
         '201':
           description: Created
@@ -1552,10 +1552,6 @@ components:
           type: string
           description: Nombre del servidor
           example: localhost
-        dataBaseName:
-          type: string
-          description: Nombre de la base de datos
-          example: ua3d
 
     CreateServer:
       type: object
