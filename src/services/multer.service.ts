@@ -1,8 +1,9 @@
 import multer from 'multer'
+import { UPLOAD_PATH } from '../config'
 
 export const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/')
+    cb(null, UPLOAD_PATH)
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + '-' + file.originalname)

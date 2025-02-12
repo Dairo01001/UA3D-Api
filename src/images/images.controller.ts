@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import path from 'path'
 import fs from 'fs'
+import { UPLOAD_PATH } from '../config'
 
 export const uploadImageHandler = async (
   req: Request,
@@ -21,7 +22,7 @@ export const getImagesHandler = async (
   res: Response,
   next: NextFunction,
 ) => {
-  const uploadsDir = path.join(__dirname, '../uploads')
+  const uploadsDir = UPLOAD_PATH
 
   try {
     fs.readdir(uploadsDir, (err, files) => {
@@ -49,7 +50,7 @@ export const deleteImageHandler = async (
   next: NextFunction,
 ) => {
   const { filename } = req.params
-  const uploadsDir = path.join(__dirname, '../../uploads')
+  const uploadsDir = UPLOAD_PATH
 
   try {
     fs.unlinkSync(path.join(uploadsDir, filename))
