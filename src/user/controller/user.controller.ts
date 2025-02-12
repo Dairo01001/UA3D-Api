@@ -50,7 +50,9 @@ export const getAllUsersHandler = async (
   next: NextFunction,
 ) => {
   try {
-    res.status(StatusCodes.OK).json(await findAllUsers())
+    res
+      .status(StatusCodes.OK)
+      .json(await findAllUsers({ person: true, profile: true }))
   } catch (err: any) {
     next(err)
   }
