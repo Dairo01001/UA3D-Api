@@ -4,6 +4,7 @@ import { adminAuthorize } from '../../middlewares/admin-authorize'
 import {
   createdServerHandler,
   createServerHandler,
+  deleteServerHandler,
   findAllServerHandler,
   findByIdHandler,
   updateServerHandler,
@@ -40,6 +41,7 @@ export const serverRoutes = () => {
   )
   router.get('/', findAllServerHandler)
   router.get('/:id', deserializeUser, findByIdHandler)
+  router.delete('/:id', deserializeUser, adminAuthorize, deleteServerHandler)
 
   return router
 }
