@@ -36,7 +36,14 @@ export const authSignInHandler = async (
 
     const user = await findUniqueUser(
       { username },
-      { id: true, username: true, password: true, role: true, status: true },
+      {
+        id: true,
+        username: true,
+        password: true,
+        role: true,
+        status: true,
+        profile: true,
+      },
     )
 
     if (!user || !(await comparePassword(password, user.password))) {
@@ -56,6 +63,7 @@ export const authSignInHandler = async (
       username: user.username,
       role: user.role.name,
       status: user.status.name,
+      photo: user.profile?.photo,
       accessToken,
       refreshToken,
     })
@@ -88,7 +96,7 @@ export const refreshAccessTokenHandler = async (
 
     const user = await findUniqueUser(
       { id: decoded.sub },
-      { id: true, username: true, person: true },
+      { id: true, username: true, person: true, profile: true },
     )
 
     if (!user) {
@@ -110,6 +118,7 @@ export const refreshAccessTokenHandler = async (
       username: user.username,
       role: user.role.name,
       status: user.status.name,
+      photo: user.profile?.photo,
       accessToken,
       refreshToken,
     })
