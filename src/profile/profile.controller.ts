@@ -1,7 +1,11 @@
-import { NextFunction, Request, Response } from 'express';
-import { CreateProfileInput } from './profile.schema';
-import { StatusCodes } from 'http-status-codes';
-import { createOrUpdateProfile, createProfile, updateProfile } from './profile.service';
+import { NextFunction, Request, Response } from 'express'
+import { CreateProfileInput, UpdateProfileInput } from './profile.schema'
+import { StatusCodes } from 'http-status-codes'
+import {
+  createOrUpdateProfile,
+  createProfile,
+  updateProfile,
+} from './profile.service'
 
 export const createProfileHandler = async (
   req: Request<{}, {}, CreateProfileInput['body']>,
@@ -9,12 +13,14 @@ export const createProfileHandler = async (
   next: NextFunction,
 ) => {
   try {
-    const { user } = res.locals;
-    res.status(StatusCodes.CREATED).json(await createProfile({ ...req.body, userId: user.id }));
+    const { user } = res.locals
+    res
+      .status(StatusCodes.CREATED)
+      .json(await createProfile({ ...req.body, userId: user.id }))
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
 
 export const updateProfileHandler = async (
   req: Request<any, {}, CreateProfileInput['body']>,
@@ -22,22 +28,24 @@ export const updateProfileHandler = async (
   next: NextFunction,
 ) => {
   try {
-    res.status(StatusCodes.OK).json(await updateProfile(Number(req.params?.id), req.body));
+    res
+      .status(StatusCodes.OK)
+      .json(await updateProfile(Number(req.params?.id), req.body))
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
-
+}
 
 export const upsertProfileHandler = async (
-  req: Request<{}, {}, CreateProfileInput['body']>,
+  req: Request<{}, {}, UpdateProfileInput['body']>,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    const { user } = res.locals;
-    res.status(StatusCodes.OK).json(await createOrUpdateProfile({ ...req.body, userId: user.id }));
+    res
+      .status(StatusCodes.OK)
+      .json(await createOrUpdateProfile({ ...req.body }))
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
