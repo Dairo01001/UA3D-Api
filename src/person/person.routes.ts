@@ -1,7 +1,12 @@
 import { Router } from 'express'
 import { deserializeUser, validateResource } from '../middlewares'
-import { createPersonHandler, updatePersonHandler } from './person.controller'
-import { CreatePersonSchema } from './person.schema'
+import {
+  createFullPersonHandler,
+  createPersonHandler,
+  updatePersonHandler,
+} from './person.controller'
+import { CreateFullPersonSchema, CreatePersonSchema } from './person.schema'
+import { AuthUserSchema } from '../schemas'
 
 export const personRoutes = (): Router => {
   const router = Router()
@@ -12,6 +17,11 @@ export const personRoutes = (): Router => {
     deserializeUser,
     validateResource(CreatePersonSchema),
     updatePersonHandler,
+  )
+  router.post(
+    '/full',
+    validateResource(CreateFullPersonSchema),
+    createFullPersonHandler,
   )
 
   return router
