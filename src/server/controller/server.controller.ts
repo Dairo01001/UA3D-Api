@@ -14,6 +14,7 @@ import {
 import { checkPort } from '../../utils/check-port'
 import { ADMIN_OPEN_URL } from '../../config'
 import { deleteServer } from '../repository'
+import axios from 'axios'
 
 export const createServerHandler = async (
   req: Request<{}, {}, CreateServerInput['body']>,
@@ -101,10 +102,10 @@ export const deleteServerHandler = async (
   const { id } = req.params
   try {
     const server = await deleteServer({ id })
-    await fetch(`${ADMIN_OPEN_URL}/server/${server.gridName}`, {
-      method: 'DELETE',
-    })
-    return server
+    const response = await axios.delete(
+      `${ADMIN_OPEN_URL}/server/${server.gridName}`,
+    )
+    res.status(StatusCodes.OK).json(response.data)
   } catch (error) {
     next(error)
   }
